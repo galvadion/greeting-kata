@@ -24,15 +24,31 @@ class TennisGame{
             return `${this.getSideScore(this.playerOneScore)}-all`
         }
         if(this.playerTwoScore>3) {
-            if(this.playerTwoScore - this.playerOneScore > 1)
-                return "Game player2"
-            return "Adv-2"
+            return this.getWhoIsWinning()
         }
         return `${this.getSideScore(this.playerOneScore)}-${this.getSideScore(this.playerTwoScore)}`
     }
 
     scoresAreTied() {
         return this.playerOneScore == this.playerTwoScore;
+    }
+
+    getWhoIsWinning(){
+        return this.playerTwoIsUpByTwoPoints() ?
+            "Game player2" : this.playerOneIsUpByTwoPoints() ? "Game player1" :
+            this.playerTwoHasAdvantage() ? "Adv-2" : "Adv-1"
+    }
+
+    playerTwoHasAdvantage() {
+        return this.playerTwoScore > this.playerOneScore;
+    }
+
+    playerOneIsUpByTwoPoints() {
+        return this.playerOneScore - this.playerTwoScore > 1;
+    }
+
+    playerTwoIsUpByTwoPoints() {
+        return this.playerTwoScore - this.playerOneScore > 1;
     }
 
     /*
@@ -112,4 +128,16 @@ test('When player one scores on an 3-4 game, score should be Game player2',()=>{
     const game = new TennisGame(3,4)
     game.wonPoint("player1")
     expect(game.getScore()).toBe("Deuce")
+})
+
+test('When player one scores on an 4-4 game, score should be Adv-1',()=>{
+    const game = new TennisGame(4,4)
+    game.wonPoint("player1")
+    expect(game.getScore()).toBe("Adv-1")
+})
+
+test('When player one scores on an 5-4 game, score should be Game player1',()=>{
+    const game = new TennisGame(5,4)
+    game.wonPoint("player1")
+    expect(game.getScore()).toBe("Game player1")
 })
