@@ -1,39 +1,43 @@
-# The Greeting Kata
+# Tennis game score tracker
+This kata is about implementing a score tracker similar to the one used in a tennis game.
+This software must allow to input whenever a player scores a point and also have the ability to show the current score or, when the game is finished, the winner of that game.
+It must follow the scoring rules below to show the current score.
+Games and Sets are excluded from this exercise.
 
-This [Kata](https://en.wikipedia.org/wiki/Kata_(programming)) is designed to help practice how a test of a pure function ought to look. It is intentionally designed to start with a very easy, non-branching base case which slowly becomes addled with complexity as additional requirements are added that will require significant branching and eventually a pressure to compose additional units.
+## Scoring rules
 
-This Kata was suggested by [Nick Gauthier](http://ngauthier.com) and inspired a bit by Bob from [Exercism](http://exercism.io).
+1. When a player score has a value between zero and three, values are described as follows
 
-This Kata is designed to be used with [[Detroit-school TDD]].
+- 0: "Love"
+- 1: "15"
+- 2: "30"
+- 3: "40"
+The standard expected output should be score of player1 dash score of player2, for example: "15-30"
 
-## Requirement 1
 
-Write a method `greet(name)` that interpolates `name` in a simple greeting. For example, when `name` is `"Bob"`, the method should return a string `"Hello, Bob."`.
+2. The *game* starts with both players at score = 0, the expected output should be: "Love-all"
+3. When the players are tied and the score is lower than "40", the expected output should be the score dash "all", for example: "30-all"
+4. When the players are tied and the score is "40", the expected output should be: "Deuce"
+5. When in "Deuce" after the first player scores a point, the expected output is "Adv-1", the same goes for second player as: "Adv-2"
+6. If the player that is not in Adv scores a point the expected output goes back to "Deuce"
+7. If no *deuce* happened during the *game*, the *game* is won by the first player to score after "40". If "Deuce" happened the firs player to score two times in a row is the winner.
 
-## Requirement 2
+## Requirements
 
-Handle nulls by introducing a stand-in. For example, when `name` is null, then the method should return the string `"Hello, my friend."`
+The task is to create a class called "TennisGame" that follows two methods:
+- wonPoint(player: string): void
+This method adds a point to the player that is passed as parameter
+- getScore(): string
+It returns the score of both players
 
-## Requirement 3
+## Example game:
 
-Handle shouting. When `name` is all uppercase, then the method should shout back to the user. For example, when `name` is `"JERRY"` then the method should return the string `"HELLO JERRY!"`
-
-## Requirement 4
-
-Handle two names of input. When `name` is an array of two names (or, in languages that support it, varargs or a splat), then both names should be printed. For example, when `name` is `["Jill", "Jane"]`, then the method should return the string `"Hello, Jill and Jane."`
-
-## Requirement 5
-
-Handle an arbitrary number of names as input. When `name` represents more than two names, separate them with commas and close with an Oxford comma and "and". For example, when `name` is `["Amy", "Brian", "Charlotte"]`, then the method should return the string `"Hello, Amy, Brian, and Charlotte."`
-
-## Requirement 6
-
-Allow mixing of normal and shouted names by separating the response into two greetings. For example, when `name` is `["Amy", "BRIAN", "Charlotte"]`, then the method should return the string `"Hello, Amy and Charlotte. AND HELLO BRIAN!"`
-
-## Requirement 7
-
-If any entries in `name` are a string containing a comma, split it as its own input. For example, when `name` is `["Bob", "Charlie, Dianne"]`, then the method should return the string `"Hello, Bob, Charlie, and Dianne."`.
-
-## Requirement 8
-
-Allow the input to escape intentional commas introduced by Requirement 7. These can be escaped in the same manner that CSV is, with double quotes surrounding the entry. For example, when `name` is `["Bob", "\"Charlie, Dianne\""]`, then the method should return the string `"Hello, Bob and Charlie, Dianne."`.
+Start game: "Love-all"  
+Player1 scores a point: "15-Love"  
+Player2 scores a point: "15-all"  
+Player1 scores a point: "30-15"  
+Player1 scores a point: "40-15"  
+Player2 scores a point: "40-30"  
+Player2 scores a point: "Deuce"  
+Player2 scores a point: "Adv-2"  
+Player2 scores a point: "Game player2"  
