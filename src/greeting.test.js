@@ -23,10 +23,14 @@ class TennisGame{
             if(this.playerOneScore >=3) return "Deuce"
             return `${this.getSideScore(this.playerOneScore)}-all`
         }
-        if(this.playerTwoScore>3) {
+        if(this.bothPlayersHaveMoreThan3Points()) {
             return this.getWhoIsWinning()
         }
         return `${this.getSideScore(this.playerOneScore)}-${this.getSideScore(this.playerTwoScore)}`
+    }
+
+    bothPlayersHaveMoreThan3Points() {
+        return this.playerTwoScore > 3 || this.playerOneScore > 3;
     }
 
     scoresAreTied() {
@@ -108,6 +112,11 @@ test('When player two scores on an 3-2 game, score should be Deuce',()=>{
     expect(game.getScore()).toBe("Deuce")
 })
 
+test('When player two scores on an 3-3 game, score should be Adv-1',()=>{
+    const game = new TennisGame(3,3)
+    game.wonPoint("player1")
+    expect(game.getScore()).toBe("Adv-1")
+})
 
 
 test('When player two scores on an 3-3 game, score should be Adv-2',()=>{
