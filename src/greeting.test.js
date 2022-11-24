@@ -19,8 +19,10 @@ class TennisGame{
     }
 
     getScore(){
-        if(this.scoresAreTied())
+        if(this.scoresAreTied()){
+            if(this.playerOneScore ==3) return "Deuce"
             return `${this.getSideScore(this.playerOneScore)}-all`
+        }
         return `${this.getSideScore(this.playerOneScore)}-${this.getSideScore(this.playerTwoScore)}`
     }
 
@@ -71,4 +73,18 @@ test('When player ones scores on an 2-1 game, score should be 40-15',()=>{
     game.wonPoint("player1")
     expect(game.getScore()).toBe("40-15")
 })
+
+test('When player two scores on an 3-1 game, score should be 40-30',()=>{
+    const game = new TennisGame(3,1)
+    game.wonPoint("player2")
+    expect(game.getScore()).toBe("40-30")
+})
+
+
+test('When player two scores on an 3-2 game, score should be Deuce',()=>{
+    const game = new TennisGame(3,2)
+    game.wonPoint("player2")
+    expect(game.getScore()).toBe("Deuce")
+})
+
 
