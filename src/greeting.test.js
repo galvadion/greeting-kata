@@ -28,12 +28,17 @@ class TennisGame{
         return this.playerOneScore == this.playerTwoScore;
     }
 
+    /*
+        {
+            0:'Love',1:'15',2:'30'
+        }
+    */
     getSideScore(score){
         const map = new Map()
         map.set(0,'Love')
         map.set(1,'15')
         map.set(2,'30')
-
+        map.set(3,'40')
         return map.get(score)
     }
 }
@@ -60,3 +65,10 @@ test('When player ones scores on an 1-1 game, score should be 30-15',()=>{
     game.wonPoint("player1")
     expect(game.getScore()).toBe("30-15")
 })
+
+test('When player ones scores on an 2-1 game, score should be 40-15',()=>{
+    const game = new TennisGame(2,1)
+    game.wonPoint("player1")
+    expect(game.getScore()).toBe("40-15")
+})
+
