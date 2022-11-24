@@ -6,14 +6,16 @@ test('works', () => {
 });
 
 class TennisGame{
-    playerOneScore = 0;
-    playerTwoScore = 0;
-    constructor(){
-
+    
+    constructor(playerOneScore,playerTwoScore){
+        this.playerOneScore = playerOneScore;
+        this.playerTwoScore = playerTwoScore;
     }
 
     wonPoint(player){
-        this.playerOneScore ++;
+        if(player=="player1")
+            this.playerOneScore ++;
+        else this.playerTwoScore ++;
     }
 
     getScore(){
@@ -29,16 +31,23 @@ class TennisGame{
     getSideScore(score){
         if(score == 0)
         return "Love"
+        else return "15"
     }
 }
 
 test('When a game has started, the score is Love-all',()=>{
-    const game = new TennisGame()
+    const game = new TennisGame(0,0)
     expect(game.getScore()).toBe("Love-all")
 })
 
 test('When player one scores on an empty game, score should be 15-Love',()=>{
-    const game = new TennisGame()
+    const game = new TennisGame(0,0)
     game.wonPoint("player1")
     expect(game.getScore()).toBe("15-Love")
+})
+
+test('When player two scores on an 1-0 game, score should be 15-all',()=>{
+    const game = new TennisGame(1,0)
+    game.wonPoint("player2")
+    expect(game.getScore()).toBe("15-all")
 })
