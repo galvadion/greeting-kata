@@ -21,7 +21,7 @@ class TennisGame{
     getScore(){
         if(this.scoresAreTied())
             return `${this.getSideScore(this.playerOneScore)}-all`
-        return `15-${this.getSideScore(this.playerTwoScore)}`
+        return `${this.getSideScore(this.playerOneScore)}-${this.getSideScore(this.playerTwoScore)}`
     }
 
     scoresAreTied() {
