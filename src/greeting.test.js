@@ -29,10 +29,12 @@ class TennisGame{
     }
 
     getSideScore(score){
-        if(score == 0)
-        return "Love"
-        else if(score==1) return "15"
-        else return "30"
+        const map = new Map()
+        map.set(0,'Love')
+        map.set(1,'15')
+        map.set(2,'30')
+
+        return map.get(score)
     }
 }
 
