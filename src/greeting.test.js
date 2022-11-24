@@ -17,9 +17,18 @@ class TennisGame{
     }
 
     getScore(){
-        if(this.playerOneScore == this.playerTwoScore)
-            return "Love-all"
-        return "15-Love"
+        if(this.scoresAreTied())
+            return `${this.getSideScore(this.playerOneScore)}-all`
+        return `15-${this.getSideScore(this.playerTwoScore)}`
+    }
+
+    scoresAreTied() {
+        return this.playerOneScore == this.playerTwoScore;
+    }
+
+    getSideScore(score){
+        if(score == 0)
+        return "Love"
     }
 }
 
