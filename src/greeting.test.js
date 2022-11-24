@@ -31,7 +31,8 @@ class TennisGame{
     getSideScore(score){
         if(score == 0)
         return "Love"
-        else return "15"
+        else if(score==1) return "15"
+        else return "30"
     }
 }
 
@@ -50,4 +51,10 @@ test('When player two scores on an 1-0 game, score should be 15-all',()=>{
     const game = new TennisGame(1,0)
     game.wonPoint("player2")
     expect(game.getScore()).toBe("15-all")
+})
+
+test('When player ones scores on an 1-1 game, score should be 30-15',()=>{
+    const game = new TennisGame(1,1)
+    game.wonPoint("player1")
+    expect(game.getScore()).toBe("30-15")
 })
