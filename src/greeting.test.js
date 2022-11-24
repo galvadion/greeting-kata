@@ -23,6 +23,7 @@ class TennisGame{
             if(this.playerOneScore ==3) return "Deuce"
             return `${this.getSideScore(this.playerOneScore)}-all`
         }
+        if(this.playerTwoScore>3) return "Adv-2"
         return `${this.getSideScore(this.playerOneScore)}-${this.getSideScore(this.playerTwoScore)}`
     }
 
@@ -87,4 +88,11 @@ test('When player two scores on an 3-2 game, score should be Deuce',()=>{
     expect(game.getScore()).toBe("Deuce")
 })
 
+
+
+test('When player two scores on an 3-3 game, score should be Adv-2',()=>{
+    const game = new TennisGame(3,3)
+    game.wonPoint("player2")
+    expect(game.getScore()).toBe("Adv-2")
+})
 
